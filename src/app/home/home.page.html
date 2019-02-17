@@ -1,12 +1,53 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      CAClearing Prototipo
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <h2>Prototipo manejo de imagenes</h2>
+
+  <ion-item>
+    <ion-label>Calidad</ion-label>
+    <ion-range min="50" max="100" color="secondary" [(ngModel)]="quality" pin="true">
+      <ion-label slot="start">50</ion-label>
+      <ion-label slot="end">100</ion-label>
+    </ion-range>
+  </ion-item>
+  
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        Formato
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>JPEG</ion-label>
+        <ion-radio value="jpeg"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>PNG</ion-label>
+        <ion-radio value="png"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <button ion-button full (click)="takePhoto()">
+    <ion-icon name="camera"></ion-icon>&nbsp;Tomar Foto
+  </button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let photo of photos; let id = index">
+        <ion-card class="block">
+          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+         {{quality}} 
+          <img [src]="photo" *ngIf="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
