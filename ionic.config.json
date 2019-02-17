@@ -1,6 +1,8 @@
 {
   "name": "caclearingproto",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "852717ce"
 }
