@@ -12,6 +12,8 @@ export class HomePage {
   public photos: any;
   public base64Image: string;
   public quality: number;
+  public height: number;
+  public width: number;
 
   constructor(private camera: Camera,
     private alertController: AlertController,) {
@@ -19,15 +21,15 @@ export class HomePage {
   }
 
   takePhoto() {
-    console.log("TakePhoto ");
+    console.log("TakePhoto " + this.quality +  "-" + this.height +"-" +this.width);
 
     const options: CameraOptions = {
       quality: this.quality,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.ALLMEDIA,
-      targetWidth: 450,
-      targetHeight: 450,
+      targetWidth: this.width,
+      targetHeight: this.height,
       saveToPhotoAlbum: true
     };
 
