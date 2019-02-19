@@ -11,49 +11,34 @@
 
   <ion-item>
     <ion-label>Calidad</ion-label>
-    <ion-range min="50" max="100" color="secondary" [(ngModel)]="quality" pin="true">
-      <ion-label slot="start">50</ion-label>
+    <ion-range min="0" max="100" color="secondary" [(ngModel)]="quality" pin="true">
+      <ion-label slot="start">0</ion-label>
       <ion-label slot="end">100</ion-label>
     </ion-range>
   </ion-item>
 
   <ion-item>
     <ion-label>Alto</ion-label>
-    <ion-input type="number" [(ngModel)]="height"></ion-input>
+    <ion-input type="number" [(ngModel)]="height" placeholder="ingresar valor"></ion-input>
   </ion-item>
   <ion-item>
       <ion-label>Ancho</ion-label>
-      <ion-input type="number" [(ngModel)]="width"></ion-input>
-    </ion-item>
-  <ion-list>
-    <ion-radio-group>
-      <ion-list-header>
-        Formato
-      </ion-list-header>
-  
-      <ion-item>
-        <ion-label>JPEG</ion-label>
-        <ion-radio value="jpeg"></ion-radio>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label>PNG</ion-label>
-        <ion-radio value="png"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
+      <ion-input type="number" [(ngModel)]="width" placeholder="ingresar valor"></ion-input>
+  </ion-item>
 
-  <button ion-button full (click)="takePhoto()">
+  <ion-button color="primary" expand="full" (click)="takePhoto()" shape="round">
     <ion-icon name="camera"></ion-icon>&nbsp;Tomar Foto
-  </button>
+  </ion-button>
 
   <ion-grid>
     <ion-row>
       <ion-col col-6 *ngFor="let photo of photos; let id = index">
         <ion-card class="block">
           <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-         {{quality}} 
           <img [src]="photo" *ngIf="photo" />
+          <ion-chip color="secondary">
+            <ion-label>Q: {{quality}} - H: {{height}} - W: {{width}}</ion-label>
+          </ion-chip>
         </ion-card>
       </ion-col>
     </ion-row>

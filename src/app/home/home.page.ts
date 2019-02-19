@@ -27,7 +27,7 @@ export class HomePage {
       quality: this.quality,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.ALLMEDIA,
+      mediaType: this.camera.MediaType.PICTURE,
       targetWidth: this.width,
       targetHeight: this.height,
       saveToPhotoAlbum: true
