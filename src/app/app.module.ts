@@ -9,6 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {Camera} from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+//import { Transfer } from '@ionic-native/transfer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +21,9 @@ import {Camera} from '@ionic-native/camera/ngx';
     StatusBar,
     SplashScreen,
     Camera,
+    File,
+    FilePath,
+ //   Transfer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
