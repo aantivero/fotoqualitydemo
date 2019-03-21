@@ -37,15 +37,30 @@ export class HomePage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA,
       targetWidth: this.width,
       targetHeight: this.height,
       saveToPhotoAlbum: true,
       correctOrientation: true,
-      allowEdit: true
+      allowEdit: false
     };
 
-    this.camera.getPicture(options).then(
-      imageData => {
+    this.camera.getPicture(options).then((imageData) => {  
+      //here converting a normal image data to base64 image data.  
+      let base64ImageData = 'data:image/jpeg;base64,' + imageData;  
+      /**here passing three arguments to method 
+      *Base64 Data 
+
+      *Folder Name 
+
+      *File Name 
+      */  
+      this.writeFile(base64ImageData, 'Cheques', 'cheque01.jpeg');  
+    }, (error) => {  
+      console.log('Ocurrio un error ' + error);       
+      });   
+    /*this.camera.getPicture(options).then(
+      (imageData) => {
         this.base64Image = "data:image/jpeg;base64," + imageData;
         this.photos.push(this.base64Image);
         this.photos.reverse();
@@ -56,8 +71,47 @@ export class HomePage {
       err => {
         console.log(err);
       }
-    );
+    );*/
   }
+  //here is the method is used to write a file in storage  
+  public writeFile(base64Data: any, folderName: string, fileName: any) {  
+    let contentType = this.getContentType(base64Data);  
+    let DataBlob = this.base64toBlob(base64Data, contentType);  
+    // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.  
+    let filePath = this.file.externalRootDirectory + folderName;  
+    this.file.writeFile(filePath, fileName, DataBlob, contentType).then((success) => {  
+        console.log("File Writed Successfully", success);  
+    }).catch((err) => {  
+        console.log("Error Occured While Writing File", err);  
+    })  
+}  
+//here is the method is used to get content type of an bas64 data  
+public getContentType(base64Data: any) {  
+    let block = base64Data.split(";");  
+    let contentType = block[0].split(":")[1];  
+    return contentType;  
+}  
+//here is the method is used to convert base64 data to blob data  
+public base64toBlob(b64Data, contentType) {  
+    contentType = contentType || '';  
+    let sliceSize = 512;  
+    let byteCharacters = atob(b64Data);  
+    let byteArrays = [];  
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {  
+        let slice = byteCharacters.slice(offset, offset + sliceSize);  
+        let byteNumbers = new Array(slice.length);  
+        for (let i = 0; i < slice.length; i++) {  
+            byteNumbers[i] = slice.charCodeAt(i);  
+        }  
+        var byteArray = new Uint8Array(byteNumbers);  
+        byteArrays.push(byteArray);  
+    }  
+    let blob = new Blob(byteArrays, {  
+        type: contentType  
+    });  
+    return blob;  
+}  
+
 
   async deletePhoto(index) {
     const alert = await this.alertController.create({
